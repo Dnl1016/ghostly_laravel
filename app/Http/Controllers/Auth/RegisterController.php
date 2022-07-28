@@ -63,13 +63,13 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    public function create()
+    public function create(array $data)
     {
-        return 'esta es el formulario para crear productos';
-        // return User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password']),
-        // ]);
+        // return 'esta es el formulario para crear productos';
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
     }
 }

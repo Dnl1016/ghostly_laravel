@@ -6,6 +6,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\Product;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
@@ -21,9 +23,13 @@ class Controller extends BaseController
             'products' => $products,
         ]);
     }
-    public function create()
+    public function create(array $data)
     {
-        return 'esta es el formulario para crear productos';
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
     }
     
     public function store()
