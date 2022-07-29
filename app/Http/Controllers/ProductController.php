@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Models\Product;
 use App\Products;
 use Illuminate\Http\Request;
@@ -8,6 +9,11 @@ use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {   
         $products= Product::all();
@@ -16,6 +22,7 @@ class ProductController extends Controller
             'products' => $products,
         ]);
     }
+
     public function create()
     {
         return  view('products.create');
@@ -47,9 +54,9 @@ class ProductController extends Controller
             ->withSuccess("El producto con id {$product->id} fue creado");
     }
     
-    public function show($product)
+    public function show(Product $product)
     {   
-        $product= Product::findOrFail($product);
+
 
         return view('products.show')->with([
             'product' => $product,
@@ -63,7 +70,7 @@ class ProductController extends Controller
          ]);
     }
 
-    public function update($product)
+    public function update(Product $product)
     {
          $rules =[
             'title'=>['required','max:255'],
@@ -74,7 +81,6 @@ class ProductController extends Controller
         ];
 
         request()->validate($rules);
-        $product= Product::findOrFail($product);
 
         $product->update(request()->all());
 
@@ -82,10 +88,8 @@ class ProductController extends Controller
             ->route('products.index')
             ->withSuccess("El producto con id {$product->id} fue editado");
     }
-    public function destroy($product)
+    public function destroy(Product $product)
     {
-        $product= Product::findOrFail($product);
-
         $product->delete();
 
         return redirect ()
