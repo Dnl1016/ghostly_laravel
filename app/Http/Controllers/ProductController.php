@@ -8,6 +8,10 @@ use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class ProductController extends Controller
 {
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {   
         $products= Product::all();
