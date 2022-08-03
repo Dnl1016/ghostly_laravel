@@ -27,15 +27,15 @@
         </div>
         <div class="form-row">
             <label>Estado</label>
-            <select class="custom-select" name="status" required>
-                <option value="" selected>Selecc...</option>
-                <option {{ old('status') == 'available' ? 'selected' : '' }} value="available">Activo</option>
-                <option {{ old('status') == 'unavailable' ? 'selected' : '' }} value="unavailable">Inactivo</option>
-            </select>
+                <select class="custom-select" name="status" required>
+                    <option value="" selected>Selecci...</option>
+                    <option {{ old('status') == 'available' ? 'selected' : '' }} value="available">Activo</option>
+                    <option {{ old('status') == 'unavailable' ? 'selected' : '' }} value="unavailable">Inactivo</option>
+                </select>
         </div>
         
         <div class="form-row mt-3">
-            <button type="submit" class="btn btn-primary btn-lg">Crear Producto</button>
+            <button type="submit" class="btn btn-primary btn-lg">Crear producto</button>
         </div>
     </form>
 @endsection

@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Products;
 use Illuminate\Http\Request;
@@ -13,41 +15,21 @@ class ProductController extends Controller
     {
         $this->middleware('auth');
     }
-
     public function index()
     {   
-        $products= Product::all();
-  
+
         return view('products.index')->with([
-            'products' => $products,
+            'products' => Product::all(),
         ]);
     }
-
     public function create()
     {
         return  view('products.create');
     }
     
-    public function store()
+    public function store(ProductRequest $request)
     {   
-        $rules =[
-            'title'=>['required','max:255'],
-            'description'=>['required','max:1000'],
-            'price'=>['required','min:1'],
-            'stock'=>['required','min:0'],
-            'status'=>['required','in:available, unavailable '],
-        ];
-
-        request()->validate($rules);
-
-        if (request()->status=='available' && request()->stock==0) {
-            return redirect ()
-                ->back()
-                ->withInput(request()->all())
-                ->withErrors('Si el producto esta disponible debe tener un stock');
-        }
-
-        $product = Product::create (request()->all());
+        $product = Product::create ($request->validated());
 
         return redirect ()
             ->route('products.index')
@@ -56,33 +38,23 @@ class ProductController extends Controller
     
     public function show(Product $product)
     {   
-
+       // $product= Product::findOrFail($product);
 
         return view('products.show')->with([
             'product' => $product,
         ]);
     }
 
-    public function edit($product)
+    public function edit(Product $product)
     {
         return view ('products.edit')->with([
-            'product'=>Product::findOrFail($product),
+            'product'=> $product,
          ]);
     }
 
-    public function update(Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-         $rules =[
-            'title'=>['required','max:255'],
-            'description'=>['required','max:1000'],
-            'price'=>['required','min:1'],
-            'stock'=>['required','min:0'],
-            'status'=>['required','in:available, unavailable '],
-        ];
-
-        request()->validate($rules);
-
-        $product->update(request()->all());
+        $product->update($request->validated());
 
         return redirect ()
             ->route('products.index')
@@ -98,4 +70,4 @@ class ProductController extends Controller
 
     }
    
-}
+} 

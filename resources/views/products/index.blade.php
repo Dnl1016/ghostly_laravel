@@ -33,6 +33,7 @@
                         <td>{{ $product->stock }}</td>
                         <td>{{ $product->status }}</td>
                         <td>
+                            
                             <a class="btn btn-link" href="{{ route('products.show', ['product' => $product->id]) }}">Mas</a>
 
                             {{-- <a class="btn btn-link" href="{{ route('products.show', ['product' => $product->title]) }}">Show</a> --}}

@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
-use Illuminate\Support\Facades\Auth;
 
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,16 +16,26 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
 Route::get('/','MainController@index')->name('index');
 
 Route::resource('products', 'ProductController');
 
+//Route::get('products','ProductController@index')->name ('products.index');
+
+//Route::get('products/create','ProductController@create')->name('products.create');
+
+//Route::post('products', 'ProductController@store')->name('products.store');
+
+//Route::get('products/{product}', 'ProductController@show')->name('products.show');
+
+//Route::get('products/{product:title}', 'ProductController@show')->name('products.show');
+
+//Route::get('products/{product}/edit', 'ProductController@edit')->name('products.edit');
+
+//Route::match(['put','patch'],'products/{product}', )->name('products.update');
+
+//Route::delete('products/{product}', 'ProductController@destroy' )->name('products.destroy');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-
