@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ProductResquest extends FormRequest
 {
+     protected $model = User::class;
     /**
      * Determine if the user is authorized to make this request.
      *
